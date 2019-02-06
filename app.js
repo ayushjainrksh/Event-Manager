@@ -2,8 +2,10 @@ var express = require('express'),
     app = express(),
     PORT = 5000 || process.env.port;
 
+app.set("view engine","ejs");
+
 app.get("/", function(req, res){
-    res.send("Home page coming soon...");
+    res.render("home");
 })
 
 app.listen(PORT, function(err){

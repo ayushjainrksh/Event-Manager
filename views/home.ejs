@@ -1,9 +1,16 @@
 <!DOCTYPE html>
 <html>
-<head>
+    <head>
 	<title>Event Manager</title>
-</head>
-<body>
-		This is Homepage.
-</body>
+    </head>
+    <body>
+		<h2>This is Homepage.</h2>
+		<a href="/">Home</a>
+		<% if(currentUser) { %>
+		<a href="/logout">Logout</a>
+		<% } else { %>
+		<a href="/login">Login</a>
+		<a href="/register">Register</a>
+		<% } %>
+	</body>
 </html>

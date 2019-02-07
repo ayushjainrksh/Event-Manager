@@ -5,6 +5,7 @@ var express = require('express'),
     mongoose = require('mongoose'),
     methodOverride = require('method-override');
 
+//Importing passport libraries
 var passport = require('passport'),
     localStrategy = require('passport-local'),
     passportLocalMongoose = require('passport-local-mongoose');
@@ -13,6 +14,11 @@ app.set("view engine","ejs");
 app.use(express.static("assets"));
 app.use(bodyParser.urlencoded({extended:true}));
 mongoose.connect("mongodb://localhost/event_db");
+
+
+//=====================
+//       MODELS
+//=====================
 
 //User Model
 var userSchema = new mongoose.Schema({
@@ -45,7 +51,10 @@ app.use(function(req, res, next){
     next();
 })
 
-//ROUTES
+//=====================
+//       ROUTES
+//=====================
+
 
 //Home route
 app.get("/", function(req, res){
@@ -89,10 +98,6 @@ app.get("/logout", function(req, res){
     req.logout();
     res.redirect("/login");
 })
-
-// app.get("/events", function(req, res){
-//     res.send("This will be event route");
-// });
 
 app.listen(PORT, function(err){
     if(err)

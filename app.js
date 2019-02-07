@@ -74,6 +74,16 @@ app.post("/register", function(req, res){
     });
 });
 
+//Login Route
+app.get("/login", function(req, res){
+    res.render("login");
+});
+
+app.post("/login", passport.authenticate("local",{
+    successRedirect : "/",
+    failureRedirect : "/login"
+}));
+
 // app.get("/events", function(req, res){
 //     res.send("This will be event route");
 // });

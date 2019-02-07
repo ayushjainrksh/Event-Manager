@@ -84,6 +84,12 @@ app.post("/login", passport.authenticate("local",{
     failureRedirect : "/login"
 }));
 
+//Logout Route
+app.get("/logout", function(req, res){
+    req.logout();
+    res.redirect("/login");
+})
+
 // app.get("/events", function(req, res){
 //     res.send("This will be event route");
 // });

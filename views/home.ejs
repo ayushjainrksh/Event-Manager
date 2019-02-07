@@ -4,13 +4,20 @@
 	<title>Event Manager</title>
     </head>
     <body>
+		<div>
 		<h2>This is Homepage.</h2>
 		<a href="/">Home</a>
 		<% if(currentUser) { %>
-		<a href="/logout">Logout</a>
+			<a href="/logout">Logout</a>
 		<% } else { %>
-		<a href="/login">Login</a>
-		<a href="/register">Register</a>
+			<a href="/login">Login</a>
+			<a href="/register">Register</a>
 		<% } %>
+		</div>
+		<div>
+			<iframe src="https://calendar.google.com/calendar/b/4/embed?height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=ornb2ka65qg7s9v8hp5qq3c0p0%40group.calendar.google.com&amp;color=%2342104A&amp;ctz=Asia%2FKolkata" style="border-width:0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+		</div>		
+
+
 	</body>
 </html>

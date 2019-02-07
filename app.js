@@ -57,6 +57,23 @@ app.get("/register", function(req, res){
     res.render("register");
 });
 
+app.post("/register", function(req, res){
+    var user = new User({username : req.body.username, club_name : req.body.club_name, club_head_name : req.body.club_head_name, contact : req.body.contact, email : req.body.email});
+    User.register(user, req.body.password, function(err, newUser){
+        if(err)
+           console.log(err);
+        else
+        {
+            passport.authenticate("local")(req, res, function(){
+                if(err)
+                    console.log(err);
+                else
+                    res.send("success");
+            });
+        }
+    });
+});
+
 // app.get("/events", function(req, res){
 //     res.send("This will be event route");
 // });

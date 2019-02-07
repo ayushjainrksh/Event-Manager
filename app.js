@@ -8,8 +8,9 @@ var express = require('express'),
 var passport = require('passport'),
     localStrategy = require('passport-local'),
     passportLocalMongoose = require('passport-local-mongoose');
-    
+
 app.set("view engine","ejs");
+app.use(express.static("assets"));
 
 app.get("/", function(req, res){
     res.render("home");

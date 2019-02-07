@@ -11,6 +11,7 @@ var passport = require('passport'),
 
 app.set("view engine","ejs");
 app.use(express.static("assets"));
+app.use(bodyParser.urlencoded({extended:true}));
 mongoose.connect("mongodb://localhost/event_db");
 
 //User Model
@@ -25,7 +26,7 @@ var userSchema = new mongoose.Schema({
 
 userSchema.plugin(passportLocalMongoose);
 
-var user = mongoose.model("User", userSchema);
+var User = mongoose.model("User", userSchema);
 
 app.use(require("express-session")({
     secret : "I am AJ",
@@ -39,9 +40,21 @@ passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+app.use(function(req, res, next){
+    res.locals.currentUser = req.user;
+    next();
+})
+
 //ROUTES
+
+//Home route
 app.get("/", function(req, res){
     res.render("home");
+});
+
+//Register Route
+app.get("/register", function(req, res){
+    res.render("register");
 });
 
 // app.get("/events", function(req, res){

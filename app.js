@@ -27,6 +27,17 @@ userSchema.plugin(passportLocalMongoose);
 
 var user = mongoose.model("User", userSchema);
 
+app.use(require("express-session")({
+    secret : "I am AJ",
+    resave : false,
+    saveUninitialized : false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 //ROUTES
 app.get("/", function(req, res){

@@ -4,14 +4,31 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
     methodOverride = require('method-override');
-    
+
 var passport = require('passport'),
     localStrategy = require('passport-local'),
     passportLocalMongoose = require('passport-local-mongoose');
 
 app.set("view engine","ejs");
 app.use(express.static("assets"));
+mongoose.connect("mongodb://localhost/event_db");
 
+//User Model
+var userSchema = new mongoose.Schema({
+    username : String,
+    password : String,
+    club_name : String,
+    club_head_name : String,
+    contact : Number,
+    email : String
+},{timestamps : true});
+
+userSchema.plugin(passportLocalMongoose);
+
+var user = mongoose.model("User", userSchema);
+
+
+//ROUTES
 app.get("/", function(req, res){
     res.render("home");
 });

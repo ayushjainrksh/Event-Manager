@@ -1,8 +1,52 @@
+<!DOCTYPE html>
 <html>
-    <head></head>
-    <body>
-        <form action="/register">
-            <input type="text">
-        </form>
-    </body>
-</html>
+<head>
+</head>
+<body>
+    <!-- In this webpage we learn about forms -->
+    <h3 style="color: white;font-family: verdana;background-color:blue;text-align: center;border: 5px solid black ">Admission Form</h3>
+    <form action="" target="_blank" method="post"><!--either "get" or "post" can be used to send data .post should be used for private data while
+        get should be used for non private data since entered values are shown in address bar -->
+        Club Name:<br>
+        <input type="text" name="club_name">
+        <br>
+        User name:<br>
+        <input type="text" name="userid">
+        <br>
+        User password:<br>
+        <input type="password" name="psw"><br><br>
+        <input type="reset">
+        <br><br>
+        <fieldset>
+          <legend>Personal Information:</legend>    
+          Secretary First Name:<br>
+          <input type="text" name="firstname"><br>
+          Secretary Last Name:<br>
+          <input type="text" name="lastname"><br><br>
+          E-mail:<br>
+          <input type="email" name="e-mail">
+          <br><br>
+          Contact Number:<br>
+          <input type="tel" name="Contact_no"><br><br>
+        </fieldset>  
+          College:<br>
+          <select name="college"><!-- here i used select -->
+            <option value="IIIT Una" selected >IIIT Una</option>
+            <option value="NIT Hamirpur">NIT Hamirpur</option>
+            <option value="Government Degree College">Government Degree College</option>
+          </select><br><br>
+          <br>
+          <br>
+          <input type="submit" value="submit">
+          <br><br>
+          Did you like the website?
+          <br>
+          <button type="button" onclick="alert('Thank you!')">Yes!</button>&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" onclick="alert('We do not care....Stupid!')">No!</button><br>
+          <br>
+          Comments:<br>
+          <textarea name="comments" style="width: 350px;height: 150px;"></textarea><br>
+        
+    </form> 
+
+</body>
+</html> 

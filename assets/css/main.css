@@ -1,5 +1,5 @@
 body{
-	background-image: url("/assets/images/resize2.jpeg") ;
+	background-image: url("/images/resize2.jpeg") ;
 	background-size: cover;
 	background-repeat: no-repeat;
 	box-sizing: border-box;
@@ -21,9 +21,7 @@ body{
 	color: #101010;
 }
 
-
 #myfirstfont
 {
     font-family: 'Pacifico', cursive;
 }
-s

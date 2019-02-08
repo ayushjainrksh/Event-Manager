@@ -34,6 +34,12 @@ userSchema.plugin(passportLocalMongoose);
 
 var User = mongoose.model("User", userSchema);
 
+//Application model
+// var appSchema = new mongoose.Schema({
+//     to : String,
+//     from : 
+// })
+
 app.use(require("express-session")({
     secret : "I am AJ",
     resave : false,
@@ -60,6 +66,17 @@ app.use(function(req, res, next){
 app.get("/", function(req, res){
     res.render("home");
 });
+
+//Application route
+app.get("/application", function(req, res){
+    res.render("application");
+});
+
+app.get("/application/new", function(req, res){
+    res.render("newapplication");
+});
+
+// AUTH ROUTES
 
 //Register Route
 app.get("/register", function(req, res){

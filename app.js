@@ -12,6 +12,7 @@ var passport = require('passport'),
 
 app.set("view engine","ejs");
 app.use(express.static("assets"));
+app.use(methodOverride("_method"));
 app.use(bodyParser.urlencoded({extended:true}));
 mongoose.connect("mongodb://localhost/event_db");
 
@@ -53,7 +54,7 @@ var appSchema = new mongoose.Schema({
     }
 }, {timestamps : true});
 
-var App = mongoose.model("App", appSchema);
+var Application = mongoose.model("Application", appSchema);
 
 //Express-session setup
 app.use(require("express-session")({
@@ -93,7 +94,28 @@ app.get("/application/new", function(req, res){
 });
 
 app.post("/application", function(req, res){
-
+    Application.create({
+        to : req.body.to,
+        from : req.body.from,
+        subject : req.body.subject,
+        purpose : req.body.purpose,
+        timing : req.body.timing,
+        description : req.body.description,
+        applicant : req.body.applicant,
+        author : {
+            id : req.user._id,
+            username : req.user.username,
+            email : req.user.email 
+        }
+    }, function(err, foundApp){
+        if(err)
+            console.log(err);
+        else
+        {
+            foundApp.save();
+            res.redirect("/");
+        }
+    });
 });
 
 // AUTH ROUTES

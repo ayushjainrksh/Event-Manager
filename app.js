@@ -118,6 +118,25 @@ app.post("/application", function(req, res){
     });
 });
 
+app.get("/application/view",function(req,res){
+    Application.find({}, function(err, foundApp){
+        if(err)
+            console.log(err);
+        else
+            res.render("viewapplication", {applications : foundApp});
+    });
+});
+
+//Show route
+app.get("/application/view/:id", function(req, res){
+    Application.findById(req.params.id, function(err, foundApp){
+        if(err)
+            console.log(err);
+        else
+            res.render("view", {application : foundApp});
+    });
+});
+
 // AUTH ROUTES
 
 //Register Route

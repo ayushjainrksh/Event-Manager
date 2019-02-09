@@ -3,7 +3,7 @@
     <body>
         <h1>Submitted applications :</h1>
         <% applications.forEach(function(app){ %>
-            <a href="/application/view/<%app._id%>"><%=app.subject %></a>
+            <a href="/application/view/<%=app._id%>"><%=app.subject %></a>
             <br>
         <% }); %>
     </body>

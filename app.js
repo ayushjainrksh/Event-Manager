@@ -116,7 +116,11 @@ app.post("/application", function(req, res){
             console.log(err);
         else
         {
+            console.log(foundApp);
+            console.log(foundApp.author);
+            console.log(foundApp.author.id);
             foundApp.save();
+            var randomToken = "abcde";
 
             const sgMail = require('@sendgrid/mail');
             sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -125,13 +129,13 @@ app.post("/application", function(req, res){
             from: 'ayushjainrksh@gmail.com',
             subject: 'Sending with SendGrid is Fun',
             text: 'and easy to do anywhere, even with Node.js',
-            html : '<a href ="www.google.com">Click to verify</a>'
+            // html : '<a href ="http://localhost:5000/application/verify">Click to verify</a>'
             // html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-            // html : '<form action="localhost:5000/application/verify1/<%=foundApp.id%>?_method=PUT" method="POST" enctype="multipart/form-data"><button type = "submit">Approve</button></form>'
+            html : '<form action="http://localhost:5000/application/verify1/'+foundApp._id+'"?_method=PUT" method="POST" enctype="multipart/form-data"><button type = "submit">Approve</button></form>'
             // html : '<form action="localhost:5000/application/verify" enctype="multipart/form-data"><button type = "submit">Approve</button></form>'
             // html : '<a href="localhost:5000/application/verify">Verify</a>'
             };
-            console.log(foundApp.id);
+            // console.log(foundApp.author.id);
             sgMail.send(msg);
 
             res.redirect("/");
@@ -159,24 +163,29 @@ app.get("/application/view/:id", function(req, res){
 });
 
 //Email Verification route
-app.get("/application/verify/abcde", function(req, res){
-    console.log("Success");
-});
+// app.get("/application/verify", function(req, res){
+//     console.log("Success");
+// });
 
+// app.post("/application/verify1/:id", function(req, res){
+//     console.log("success");
 
+// });
 
-app.put("/application/verify1/:id", function(req, res){
+app.post("/application/verify1/:id", function(req, res){
     console.log("PUT Here");
     Application.findById(req.params.id, function(err, foundApp){
-        var isVerif1 = true;
-        Application.findByIdAndUpdate(req.params.id, isVerif1, function(err, updatedApp){
-            if(err)
-                console.log(err);
-            else
-            {
-                res.redirect("/home");
-            }
-        });
+        // var isVerif1 = true;
+        if(err)
+        {
+            console.log(err);
+        }
+        else
+        {
+            foundApp.isVerif1 = true;
+            foundApp.save();
+            res.redirect('/');    
+        }
     })
 });
 

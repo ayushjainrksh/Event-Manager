@@ -51,7 +51,9 @@ var appSchema = new mongoose.Schema({
         },
         username : String,
         email : String
-    }
+    },
+    isVerif1 : Boolean,
+    isVerif2 : Boolean
 }, {timestamps : true});
 
 var Application = mongoose.model("Application", appSchema);
@@ -106,7 +108,9 @@ app.post("/application", function(req, res){
             id : req.user._id,
             username : req.user.username,
             email : req.user.email 
-        }
+        },
+        isVerif1 : false,
+        isVerif2 : false
     }, function(err, foundApp){
         if(err)
             console.log(err);
@@ -121,8 +125,13 @@ app.post("/application", function(req, res){
             from: 'ayushjainrksh@gmail.com',
             subject: 'Sending with SendGrid is Fun',
             text: 'and easy to do anywhere, even with Node.js',
-            html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+            html : '<a href ="www.google.com">Click to verify</a>'
+            // html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+            // html : '<form action="localhost:5000/application/verify1/<%=foundApp.id%>?_method=PUT" method="POST" enctype="multipart/form-data"><button type = "submit">Approve</button></form>'
+            // html : '<form action="localhost:5000/application/verify" enctype="multipart/form-data"><button type = "submit">Approve</button></form>'
+            // html : '<a href="localhost:5000/application/verify">Verify</a>'
             };
+            console.log(foundApp.id);
             sgMail.send(msg);
 
             res.redirect("/");
@@ -147,6 +156,28 @@ app.get("/application/view/:id", function(req, res){
         else
             res.render("view", {application : foundApp});
     });
+});
+
+//Email Verification route
+app.get("/application/verify/abcde", function(req, res){
+    console.log("Success");
+});
+
+
+
+app.put("/application/verify1/:id", function(req, res){
+    console.log("PUT Here");
+    Application.findById(req.params.id, function(err, foundApp){
+        var isVerif1 = true;
+        Application.findByIdAndUpdate(req.params.id, isVerif1, function(err, updatedApp){
+            if(err)
+                console.log(err);
+            else
+            {
+                res.redirect("/home");
+            }
+        });
+    })
 });
 
 // AUTH ROUTES

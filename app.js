@@ -157,20 +157,9 @@ app.get("/application/view/:id", function(req, res){
     });
 });
 
-//Email Verification route
-// app.get("/application/verify", function(req, res){
-//     console.log("Success");
-// });
-
-// app.post("/application/verify1/:id", function(req, res){
-//     console.log("success");
-
-// });
-
 app.post("/application/verify1/:id", function(req, res){
     console.log("PUT Here");
     Application.findById(req.params.id, function(err, foundApp){
-        // var isVerif1 = true;
         if(err)
         {
             console.log(err);

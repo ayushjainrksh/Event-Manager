@@ -4,7 +4,7 @@
 
 
   body{
-    background-image: url("connect.jpg");
+    background-image: url("/images/Connect.jpg");
     background-position: center;
     background-size: cover;
   }
@@ -14,7 +14,7 @@
 	{
 		/*background-color: white;*/
 		width: 40%;
-		height: 650px;
+		height: 650px;  
 		float: left;
 		font-family: arial;
 		/*margin-top: 50px;*/

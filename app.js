@@ -88,7 +88,12 @@ app.get("/", function(req, res){
 
 //Application route
 app.get("/application", function(req, res){
-    res.render("application");
+    User.find({}, function(err, foundUser){
+        if(err)
+            console.log(err);
+        else
+            res.render("application", {user : foundUser});
+    });
 });
 
 app.get("/application/new", function(req, res){
@@ -116,12 +121,7 @@ app.post("/application", function(req, res){
             console.log(err);
         else
         {
-            console.log(foundApp);
-            console.log(foundApp.author);
-            console.log(foundApp.author.id);
             foundApp.save();
-            var randomToken = "abcde";
-
             const sgMail = require('@sendgrid/mail');
             sgMail.setApiKey(process.env.SENDGRID_API_KEY);
             const msg = {
@@ -129,13 +129,8 @@ app.post("/application", function(req, res){
             from: 'ayushjainrksh@gmail.com',
             subject: 'Sending with SendGrid is Fun',
             text: 'and easy to do anywhere, even with Node.js',
-            // html : '<a href ="http://localhost:5000/application/verify">Click to verify</a>'
-            // html: '<strong>and easy to do anywhere, even with Node.js</strong>',
             html : '<form action="http://localhost:5000/application/verify1/'+foundApp._id+'"?_method=PUT" method="POST" enctype="multipart/form-data"><button type = "submit">Approve</button></form>'
-            // html : '<form action="localhost:5000/application/verify" enctype="multipart/form-data"><button type = "submit">Approve</button></form>'
-            // html : '<a href="localhost:5000/application/verify">Verify</a>'
             };
-            // console.log(foundApp.author.id);
             sgMail.send(msg);
 
             res.redirect("/");
@@ -207,7 +202,8 @@ app.post("/register", function(req, res){
                 if(err)
                     console.log(err);
                 else
-                    res.send("success");
+                    res.redirect("/");
+                    // res.send("success");
             });
         }
     });

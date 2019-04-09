@@ -158,7 +158,7 @@ app.get("/application/view/:id", function(req, res){
 });
 
 app.post("/application/verify1/:id", function(req, res){
-    console.log("PUT Here");
+    // console.log("PUT Here");
     Application.findById(req.params.id, function(err, foundApp){
         if(err)
         {
